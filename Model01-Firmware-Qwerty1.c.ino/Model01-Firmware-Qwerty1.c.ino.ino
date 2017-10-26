@@ -75,7 +75,8 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+       MACRO_ANY,
+       MACRO_TOGGLER
      };
 
 
@@ -121,7 +122,7 @@ enum { MACRO_VERSION_INFO,
   * the numbers 0, 1 and 2.
   */
 
-enum { QWERTY, FUNCTION, NUMPAD }; // layers
+enum { QWERTY, FUNCTION, COLEMAK, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -131,10 +132,10 @@ enum { QWERTY, FUNCTION, NUMPAD }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [QWERTY] = KEYMAP_STACKED
-  (___,           Key_1, Key_2, Key_3, Key_4, Key_5, LSHIFT(LALT(LGUI(Key_LeftControl))),
-   Key_Backtick,  Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,    Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown,  Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+  (M(MACRO_TOGGLER), Key_1, Key_2, Key_3, Key_4, Key_5, LSHIFT(LALT(LGUI(Key_LeftControl))),
+   Key_Backtick,     Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
+   Key_PageUp,       Key_A, Key_S, Key_D, Key_F, Key_G,
+   Key_PageDown,     Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
    //OSM(LeftControl), Key_Backspace, OSM(LeftGui), OSM(LeftShift),
    Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
    ShiftToLayer(FUNCTION),
@@ -162,6 +163,21 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Consumer_ScanPreviousTrack, Key_Mute,               Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
    ___, ___, Key_Enter, ___,
    ___),
+
+   [COLEMAK] = KEYMAP_STACKED
+  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_G, Key_Tab,
+   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_D,
+   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
+   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
+   ShiftToLayer(FUNCTION),
+
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         Key_KeypadNumLock,
+   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
+                  Key_H, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
+   Key_RightAlt,  Key_K, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
+   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
+   ShiftToLayer(FUNCTION)),
 
 
   [NUMPAD] =  KEYMAP_STACKED
@@ -213,6 +229,19 @@ static void anyKeyMacro(uint8_t keyState) {
 }
 
 
+// 
+static void toggleFactoryLayout(uint8_t keyState) {
+  if (!keyToggledOn(keyState))
+    return;
+
+  if (Layer.isOn(COLEMAK)) {
+    Layer.move(QWERTY);
+    LEDControl.set_mode(1);
+  } else {
+    Layer.move(COLEMAK);
+    LEDControl.set_mode(8);
+  }
+}
 
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
@@ -234,6 +263,10 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
+    break;
+
+  case MACRO_TOGGLER:
+    toggleFactoryLayout(keyState);
     break;
   }
   return MACRO_NONE;
