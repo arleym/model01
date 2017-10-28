@@ -28,12 +28,13 @@ enum {
   MACRO_VERSION_INFO,
   MACRO_ANY,
   MACRO_TOGGLER,
-  MACRO_HYPER
+  MACRO_HYPER,
+  MACRO_MEH
 };
 
 
 // keymaps
-enum { COLEMAK, QWERTY, FUNCTION, NUMPAD };
+enum { COLEMAK, QWERTY, FUNCTION, FUNCTION2, NUMPAD };
 
 // *INDENT-OFF*
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -47,13 +48,13 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
   ShiftToLayer(FUNCTION),
 
-  LALT(LGUI(Key_LeftControl)),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
+  M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
   Key_Enter,                      Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
                                   Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
   M(MACRO_HYPER),                 Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  //Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
-  OSM(RightShift),    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
-  ShiftToLayer(FUNCTION)),
+  OSM(RightShift),    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
+  // Key_RightShift,    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
+  ShiftToLayer(FUNCTION2)),
 
 
   [QWERTY] = KEYMAP_STACKED
@@ -81,11 +82,28 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,
 
   M(MACRO_ANY),                  Key_F6,                    Key_F7,                      Key_F8,                      Key_F9,             Key_F10,             Key_F11,
-  Consumer_PlaySlashPause,       Consumer_ScanNextTrack,    Key_LeftCurlyBracket,        Key_RightCurlyBracket,       Key_LeftBracket,    Key_RightBracket,    Key_F12,
+  Consumer_PlaySlashPause,       ___,    Key_LeftCurlyBracket,        Key_RightCurlyBracket,       Key_LeftBracket,    Key_RightBracket,    Key_F12,
                                  Key_LeftArrow,             Key_DownArrow,               Key_UpArrow,                 Key_RightArrow,     ___,                 ___,
-  Consumer_ScanPreviousTrack,    Key_Mute,                  Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,                Key_Backslash,       Key_Pipe,
+  ___,    Key_Mute,                  Key_F18,    Key_F19,    ___,                Key_Backslash,       Key_Pipe,
   ___,    ___,    Key_Enter,    ___,
   ___),
+
+
+  [FUNCTION2] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+  ___, ___, Key_UpArrow, ___, ___, ___, ___,
+  ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
+  ___, ___, ___, ___, ___, ___, ___,
+  ___, ___, ___, ___,
+  ___,
+
+  ___,                  ___,                    ___,                      ___,                      ___,             ___,             ___,
+  Consumer_PlaySlashPause,       ___,    ___,        ___,       ___,    ___,    ___,
+                                 ___,             ___,               ___,                 ___,     ___,                 ___,
+  ___,    Key_Mute,    Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,                Consumer_ScanPreviousTrack,       Consumer_ScanNextTrack,
+  ___,    ___,    ___,    ___,
+  ___),
+
 
 
   [NUMPAD] =  KEYMAP_STACKED
@@ -148,6 +166,13 @@ static void OneShotHyper(uint8_t keyState) {
   handleKeyswitchEvent(OSM(LeftGui), UNKNOWN_KEYSWITCH_LOCATION, keyState);
 }
 
+// one shot modifier on meh
+static void OneShotMeh(uint8_t keyState) {
+  handleKeyswitchEvent(OSM(LeftControl), UNKNOWN_KEYSWITCH_LOCATION, keyState);
+  handleKeyswitchEvent(OSM(LeftAlt), UNKNOWN_KEYSWITCH_LOCATION, keyState);
+  handleKeyswitchEvent(OSM(LeftGui), UNKNOWN_KEYSWITCH_LOCATION, keyState);
+}
+
 // macro switcher
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
@@ -167,6 +192,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   case MACRO_HYPER:
     OneShotHyper(keyState);
     break;
+
+  case MACRO_MEH:
+    OneShotMeh(keyState);
+    break;
+
   }
   return MACRO_NONE;
 }
@@ -281,4 +311,5 @@ void setup() {
 void loop() {
   Kaleidoscope.loop();
 }
+
 
