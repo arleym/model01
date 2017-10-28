@@ -48,12 +48,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
   ShiftToLayer(FUNCTION),
 
-  M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
-  Key_Enter,                      Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
-                                  Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
-  M(MACRO_HYPER),                 Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  OSM(RightShift),    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
-  // Key_RightShift,    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
+  M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
+  Key_Enter,         Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
+                     Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
+  M(MACRO_HYPER),    Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
+  OSM(RightShift),    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
+  // Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
   ShiftToLayer(FUNCTION2)),
 
 
@@ -74,17 +74,17 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FUNCTION] =  KEYMAP_STACKED
-  (LGUI(LCTRL(Key_Space)),    Key_F1,                   Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
-  Key_Enter,                  ___,                      Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
-  Key_mouseScrollDn,          Key_mouseL,               Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
-  Key_mouseScrollUp,          ___,                      ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
+  (LGUI(LCTRL(Key_Space)),    Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
+  Key_Enter,                  ___,           Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
+  Key_mouseScrollDn,          Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
+  Key_mouseScrollUp,          ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
   ___,    Key_Delete,    ___,    ___,
   ___,
 
-  M(MACRO_ANY),                  Key_F6,                    Key_F7,                      Key_F8,                      Key_F9,             Key_F10,             Key_F11,
-  Consumer_PlaySlashPause,       ___,    Key_LeftCurlyBracket,        Key_RightCurlyBracket,       Key_LeftBracket,    Key_RightBracket,    Key_F12,
-                                 Key_LeftArrow,             Key_DownArrow,               Key_UpArrow,                 Key_RightArrow,     ___,                 ___,
-  ___,    Key_Mute,                  Key_F18,    Key_F19,    ___,                Key_Backslash,       Key_Pipe,
+  M(MACRO_ANY),               Key_F6,           Key_F7,                  Key_F8,                   Key_F9,             Key_F10,             Key_F11,
+  Consumer_PlaySlashPause,    ___,              Key_LeftCurlyBracket,    Key_RightCurlyBracket,    Key_LeftBracket,    Key_RightBracket,    Key_F12,
+                              Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
+  ___,    Key_Mute,           Key_F18,          Key_F19,                 ___,                      Key_Backslash,      Key_Pipe,
   ___,    ___,    Key_Enter,    ___,
   ___),
 
@@ -97,10 +97,10 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___, ___, ___, ___,
   ___,
 
-  ___,                  ___,                    ___,                      ___,                      ___,             ___,             ___,
-  Consumer_PlaySlashPause,       ___,    ___,        ___,       ___,    ___,    ___,
-                                 ___,             ___,               ___,                 ___,     ___,                 ___,
-  ___,    Key_Mute,    Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,                Consumer_ScanPreviousTrack,       Consumer_ScanNextTrack,
+  ___, ___, ___, ___, ___, ___, ___,
+  Consumer_PlaySlashPause, ___, ___, ___, ___, ___, ___,
+                           ___, ___, ___, ___, ___, ___,
+  ___, Key_Mute,    Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
   ___,    ___,    ___,    ___,
   ___),
 
