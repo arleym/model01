@@ -1,10 +1,6 @@
 // Arley's M01 firmware
-// -*- mode: c++ -*-
-// Copyright 2016 Keyboardio, inc. <jesse@keyboard.io>
-// See "LICENSE" for license details
-
 #ifndef BUILD_INFORMATION
-#define BUILD_INFORMATION "locally built"
+#define BUILD_INFORMATION "1.0"
 #endif
 
 // includes
@@ -54,8 +50,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Enter,                      Key_Y,    Key_U,    Key_I,        Key_O,         Key_P,            Key_Equals,
                                   Key_H,    Key_J,    Key_K,        Key_L,         Key_Semicolon,    Key_Quote,
   M(MACRO_HYPER),                 Key_N,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  //OSM(RightShift),    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
-  Key_RightShift,    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
+  //Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
+  OSM(RightShift),    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
   ShiftToLayer(FUNCTION)),
 
 
