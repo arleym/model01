@@ -19,6 +19,7 @@
 // Support for One Shot modifiers
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Escape-OneShot.h"
+#include <Kaleidoscope-LED-ActiveModColor.h>
 #include <kaleidoscope/hid.h>
 
 
@@ -42,8 +43,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_PageUp,           Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_PageDown,         Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  //OSM(LeftControl),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
-  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
+  OSM(LeftControl),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
+  //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
   ShiftToLayer(FUNCTION),
 
   LALT(LGUI(Key_LeftControl)),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
@@ -195,6 +196,7 @@ void setup() {
     // One Shot modifier
     &OneShot,
     &EscapeOneShot,
+    &ActiveModColorEffect,
 
     // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
     &BootGreetingEffect,
@@ -264,6 +266,9 @@ void setup() {
   MouseKeys.accelDelay = 300; // 50
   MouseKeys.wheelSpeed = 1; // 1
   MouseKeys.wheelDelay = 60; // 50
+
+  // Oneshot
+  ActiveModColorEffect.highlight_color = CRGB(0xff, 0xff, 0xff);
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
