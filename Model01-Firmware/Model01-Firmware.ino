@@ -34,7 +34,7 @@ enum {
 
 
 // keymaps
-enum { COLEMAK, QWERTY, FUNCTION, FUNCTION2, NUMPAD };
+enum { COLEMAK, QWERTY, FNLEFT, FNRIGHT, NUMPAD };
 
 // *INDENT-OFF*
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -46,7 +46,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_PageDown,         Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
   OSM(LeftControl),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
   //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
-  ShiftToLayer(FUNCTION),
+  ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
   Key_Enter,         Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
@@ -54,7 +54,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   M(MACRO_HYPER),    Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
   OSM(RightShift),    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
   // Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
-  ShiftToLayer(FUNCTION2)),
+  ShiftToLayer(FNRIGHT)),
 
 
   [QWERTY] = KEYMAP_STACKED
@@ -73,7 +73,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___),
 
 
-  [FUNCTION] =  KEYMAP_STACKED
+  [FNLEFT] =  KEYMAP_STACKED
   (LGUI(LCTRL(Key_Space)),    Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
   Key_Enter,                  ___,           Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
   Key_mouseScrollDn,          Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
@@ -89,7 +89,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___),
 
 
-  [FUNCTION2] =  KEYMAP_STACKED
+  [FNRIGHT] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
   ___, ___, Key_UpArrow, ___, ___, ___, ___,
   ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
@@ -101,7 +101,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Consumer_PlaySlashPause, ___, ___, ___, ___, ___, ___,
                            ___, ___, ___, ___, ___, ___,
   ___, Key_Mute,    Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
-  ___,    ___,    ___,    ___,
+  ___,    ___,    Key_Enter,    ___,
   ___),
 
 
@@ -311,5 +311,4 @@ void setup() {
 void loop() {
   Kaleidoscope.loop();
 }
-
 
