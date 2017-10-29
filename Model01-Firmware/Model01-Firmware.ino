@@ -84,7 +84,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   M(MACRO_ANY),               Key_F6,           Key_F7,                  Key_F8,                   Key_F9,             Key_F10,             Key_F11,
   Consumer_PlaySlashPause,    ___,              Key_LeftCurlyBracket,    Key_RightCurlyBracket,    Key_LeftBracket,    Key_RightBracket,    Key_F12,
                               Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
-  ___,    Key_Mute,           Key_F18,          Key_F19,                 ___,                      Key_Backslash,      Key_Pipe,
+  ___,    Key_Mute,           ___,              Key_F19,                 Key_F18,                  Key_Backslash,      Key_Pipe,
   ___,    ___,    Key_Enter,    ___,
   ___),
 
@@ -100,7 +100,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___, ___, ___, ___, ___, ___, ___,
   Consumer_PlaySlashPause, ___, ___, ___, ___, ___, ___,
                            ___, ___, ___, ___, ___, ___,
-  ___, Key_Mute,    Consumer_VolumeDecrement,    Consumer_VolumeIncrement,    ___,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
+  ___, Key_Mute,    ___,    Consumer_VolumeIncrement,    Consumer_VolumeDecrement,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
   ___,    ___,    Key_Enter,    ___,
   ___),
 
