@@ -44,7 +44,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_PageUp,           Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_PageDown,         Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  OSM(LeftControl),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
+  ___,    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
   //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
   ShiftToLayer(FNLEFT),
 
@@ -52,7 +52,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Enter,         Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
                      Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
   M(MACRO_HYPER),    Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  OSM(RightShift),    Key_LeftAlt,    Key_Spacebar,    OSM(RightControl),
+  OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ___,
   // Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
   ShiftToLayer(FNRIGHT)),
 
