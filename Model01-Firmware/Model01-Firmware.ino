@@ -21,6 +21,7 @@
 #include "Kaleidoscope-Escape-OneShot.h"
 #include <Kaleidoscope-LED-ActiveModColor.h>
 #include <kaleidoscope/hid.h>
+#include <Kaleidoscope-LEDEffect-DigitalRain.h>
 
 
 // index of macros
@@ -40,20 +41,18 @@ enum { COLEMAK, QWERTY, FNLEFT, FNRIGHT, NUMPAD };
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [COLEMAK] = KEYMAP_STACKED
-  (M(MACRO_TOGGLER),    Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
-  Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
-  Key_PageUp,           Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
-  Key_PageDown,         Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
+  (___,            Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
+  Key_Backtick,    Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
+  Key_PageUp,      Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
+  Key_PageDown,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
   ___,    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
-  //  Key_LeftControl,    Key_Backspace,    Key_LeftGui,    Key_LeftShift,
   ShiftToLayer(FNLEFT),
 
-  M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
-  Key_Enter,         Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
-                     Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
-  M(MACRO_HYPER),    Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
+  M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
+  ___,             Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
+                   Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
+  Key_Enter,       Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
   OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ___,
-  // Key_RightShift,    OSM(LeftAlt),    Key_Spacebar,    OSM(RightControl),
   ShiftToLayer(FNRIGHT)),
 
 
@@ -65,10 +64,10 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,     ___,    ___,    ___,
   ___,
 
-  ___,    ___,      ___,      ___,      ___,      ___,              ___,
-  ___,    Key_Y,    Key_U,    Key_I,    Key_O,    Key_P,            ___,
-          Key_H,    Key_J,    Key_K,    Key_L,    Key_Semicolon,    ___,
-  ___,    Key_N,    Key_M,    ___,      ___,      ___,              ___,
+  ___,          ___,      ___,      ___,      ___,      ___,              ___,
+  Key_Enter,    Key_Y,    Key_U,    Key_I,    Key_O,    Key_P,            ___,
+                Key_H,    Key_J,    Key_K,    Key_L,    Key_Semicolon,    ___,
+  ___,          Key_N,    Key_M,    ___,      ___,      ___,              ___,
   ___,    ___,    ___,    ___,
   ___),
 
@@ -90,16 +89,16 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FNRIGHT] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
+  (___, M(MACRO_TOGGLER), ___, ___, ___, ___, ___,
   ___, ___, Key_UpArrow, ___, ___, ___, ___,
   ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
   ___, ___, ___, ___, ___, ___, ___,
   ___, ___, ___, ___,
   ___,
 
-  ___, ___, ___, ___, ___, ___, ___,
+  ___, (LGUI(LSHIFT(LCTRL(Key_4)))), ___, ___, ___, ___, ___,
   Consumer_PlaySlashPause, ___, ___, ___, ___, ___, ___,
-                           ___, ___, ___, ___, ___, ___,
+                              Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
   ___, Key_Mute,    ___,    Consumer_VolumeIncrement,    Consumer_VolumeDecrement,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
   ___,    ___,    Key_Enter,    ___,
   ___),
@@ -204,106 +203,63 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less
-// Arley ones are untested
-
+// Arley ones are untested for power consumption
 static kaleidoscope::LEDSolidColor solidRed(160, 0, 0);
-static kaleidoscope::LEDSolidColor solidOrange(140, 70, 0);
-static kaleidoscope::LEDSolidColor solidYellow(130, 100, 0);
-static kaleidoscope::LEDSolidColor solidGreen(0, 160, 0);
-static kaleidoscope::LEDSolidColor solidBlue(0, 70, 130);
-static kaleidoscope::LEDSolidColor solidIndigo(0, 0, 170);
-static kaleidoscope::LEDSolidColor solidViolet(130, 0, 120);
+// static kaleidoscope::LEDSolidColor solidOrange(140, 70, 0);
+// static kaleidoscope::LEDSolidColor solidYellow(130, 100, 0);
+// static kaleidoscope::LEDSolidColor solidGreen(0, 160, 0);
+// static kaleidoscope::LEDSolidColor solidBlue(0, 70, 130);
+// static kaleidoscope::LEDSolidColor solidIndigo(0, 0, 170);
+// static kaleidoscope::LEDSolidColor solidViolet(130, 0, 120);
 static kaleidoscope::LEDSolidColor arleyblue(46, 114, 185);
 static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 
 void setup() {
+  Kaleidoscope.use(&LEDDigitalRainEffect);
+
   Kaleidoscope.setup();
 
-  // Next, tell Kaleidoscope which plugins you want to use.
-  // The order can be important. eg, LED effects are added in the order listed
+  // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
-    // One Shot modifier
-    &OneShot,
-    &EscapeOneShot,
-    &ActiveModColorEffect,
-
-    // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
+    &OneShot, &EscapeOneShot, &ActiveModColorEffect,
     &BootGreetingEffect,
-
-    // LEDControl provides support for other LED modes
     &LEDControl,
-
-    // We start with the LED effect that turns off all the LEDs.
     &LEDOff,
 
-    // first color, called in layout swapper
-    &arleyblue,
+    &arleyblue, // first color, called in layout swapper
     &arleygreen,
-
-    // The rainbow effect changes the color of all of the keyboard's keys at the same time
-    // running through all the colors of the rainbow.
     &LEDRainbowEffect,
-
-    // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
-    // and slowly moves the rainbow across your keyboard
     &LEDRainbowWaveEffect,
-
-    // The chase effect follows the adventure of a blue pixel which chases a red pixel across
-    // your keyboard. Spoiler: the blue pixel never catches the red pixel
     &LEDChaseEffect,
-
-    // These static effects turn your keyboard's LEDs a variety of colors
-    &solidRed, &solidOrange, &solidYellow, &solidGreen, &solidBlue, &solidIndigo, &solidViolet,
-    //&arleyrgreen,
-
-    // The breathe effect slowly pulses all of the LEDs on your keyboard
+    &solidRed, //&solidOrange, &solidYellow, &solidGreen, &solidBlue, &solidIndigo, &solidViolet,
     &LEDBreatheEffect,
-
-    // The stalker effect lights up the keys you've pressed recently
     &StalkerEffect,
-
-    // The numlock plugin is responsible for lighting up the 'numpad' mode
-    // with a custom LED effect
     &NumLock,
 
-    // The macros plugin adds support for macros
     &Macros,
-
-    // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
     &MouseKeys
   );
 
-  // While we hope to improve this in the future, the NumLock plugin
-  // needs to be explicitly told which keymap layer is your numpad layer
   NumLock.numPadLayer = NUMPAD;
-
-  // We set the brightness of the rainbow effects to 150 (on a scale of 0-255)
-  // This draws more than 500mA, but looks much nicer than a dimmer effect
   LEDRainbowEffect.brightness(150);
   LEDRainbowWaveEffect.brightness(150);
 
-  // The LED Stalker mode has a few effects. The one we like is
-  // called 'BlazingTrail'. For details on other options,
-  // see https://github.com/keyboardio/Kaleidoscope-LED-Stalker
+  // For details on other options, see https://github.com/keyboardio/Kaleidoscope-LED-Stalker
   StalkerEffect.variant = STALKER(BlazingTrail);
 
-  // Mousekeys - defaults listed after options
-  // https://github.com/keyboardio/Kaleidoscope-MouseKeys
-  MouseKeys.speed = 50; // 1
+  // Mousekeys - defaults listed after options https://github.com/keyboardio/Kaleidoscope-MouseKeys
+  MouseKeys.speed = 48; // 1
   MouseKeys.speedDelay = 0; // 0
-  MouseKeys.accelSpeed = 1; // 1
-  MouseKeys.accelDelay = 300; // 50
+  MouseKeys.accelSpeed = 1f; // 1
+  MouseKeys.accelDelay = 150; // 50
   MouseKeys.wheelSpeed = 1; // 1
   MouseKeys.wheelDelay = 60; // 50
 
   // Oneshot
   ActiveModColorEffect.highlight_color = CRGB(0xff, 0xff, 0xff);
 
-  // We want to make sure that the firmware starts with LED effects off
-  // This avoids over-taxing devices that don't have a lot of power to share
-  // with USB devices
-  // LEDOff.activate();
+  LEDOff.activate();
 
 }
 
