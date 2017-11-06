@@ -35,7 +35,7 @@ enum {
 
 
 // keymaps
-enum { COLEMAK, QWERTY, FNLEFT, FNRIGHT, NUMPAD };
+enum { COLEMAK, KAMELOC, QWERTY, FNLEFT, FNRIGHT, NUMPAD };
 
 // *INDENT-OFF*
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -45,17 +45,33 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,    Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_PageUp,      Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_PageDown,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  ___,    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
+  ShiftToLayer(KAMELOC),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
   ___,             Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
                    Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
   Key_Enter,       Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ___,
+  OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(KAMELOC),
   ShiftToLayer(FNRIGHT)),
 
 
+  [KAMELOC] = KEYMAP_STACKED
+  (Key_KeypadNumLock,    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
+  Key_Equals,            Key_Semicolon,    Key_Y,         Key_U,        Key_L,    Key_J,    ___,
+  Key_Quote,             Key_O,            Key_I,         Key_E,        Key_N,    Key_H,
+  Key_Minus,             Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_K,    Key_Enter,
+  ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
+  ShiftToLayer(FNRIGHT),
+
+  M(MACRO_HYPER),    Key_5,    Key_4,    Key_3,    Key_2,    Key_1,    ___,
+  Key_Tab,           Key_G,    Key_P,    Key_F,    Key_W,    Key_Q,    Key_Backtick,
+                     Key_D,    Key_T,    Key_S,    Key_R,    Key_A,    Key_PageUp,
+  Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
+  OSM(LeftShift),    OSM(LeftGui),    Key_Backspace,    ___,
+  ShiftToLayer(FNLEFT)),
+
+  
   [QWERTY] = KEYMAP_STACKED
   (___,    ___,      ___,      ___,      ___,      ___,      ___,
   ___,     Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    ___,
@@ -251,7 +267,7 @@ void setup() {
   // Mousekeys - defaults listed after options https://github.com/keyboardio/Kaleidoscope-MouseKeys
   MouseKeys.speed = 48; // 1
   MouseKeys.speedDelay = 0; // 0
-  MouseKeys.accelSpeed = 1f; // 1
+  MouseKeys.accelSpeed = 1; // 1
   MouseKeys.accelDelay = 150; // 50
   MouseKeys.wheelSpeed = 1; // 1
   MouseKeys.wheelDelay = 60; // 50
