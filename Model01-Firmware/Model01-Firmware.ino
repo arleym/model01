@@ -49,7 +49,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
-  ___,             Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
+  OSM(LeftShift),  Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
                    Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
   Key_Enter,       Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
   OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(KAMELOC),
@@ -58,7 +58,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [KAMELOC] = KEYMAP_STACKED
   (Key_KeypadNumLock,    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
-  Key_Equals,            Key_Semicolon,    Key_Y,         Key_U,        Key_L,    Key_J,    ___,
+  Key_Equals,            Key_Semicolon,    Key_Y,         Key_U,        Key_L,    Key_J,    OSM(LeftShift),
   Key_Quote,             Key_O,            Key_I,         Key_E,        Key_N,    Key_H,
   Key_Minus,             Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_K,    Key_Enter,
   ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
