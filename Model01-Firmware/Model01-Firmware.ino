@@ -45,7 +45,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,    Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_PageUp,      Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_PageDown,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  ShiftToLayer(KAMELOC),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
+  ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
