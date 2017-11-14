@@ -235,6 +235,7 @@ static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 
 void setup() {
+  Serial.begin(9600);
 
   // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
