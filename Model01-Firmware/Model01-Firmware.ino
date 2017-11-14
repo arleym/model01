@@ -22,20 +22,20 @@
 #include <Kaleidoscope-LED-ActiveModColor.h>
 #include <kaleidoscope/hid.h>
 #include <Kaleidoscope-LEDEffect-DigitalRain.h>
+#include <Kaleidoscope-Steno.h>
 
 
 // index of macros
 enum {
   MACRO_VERSION_INFO,
   MACRO_ANY,
-  MACRO_TOGGLER,
   MACRO_HYPER,
   MACRO_MEH
 };
 
 
 // keymaps
-enum { COLEMAK, KAMELOC, QWERTY, FNLEFT, FNRIGHT, NUMPAD };
+enum { COLEMAK, KAMELOC, QWERTY, STENO, FNLEFT, FNRIGHT, NUMPAD };
 
 // *INDENT-OFF*
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -88,6 +88,22 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___),
 
 
+  [STENO] = KEYMAP_STACKED
+  (XXX,    XXX,   XXX,   XXX,   XXX,   XXX,   S(N6),
+  XXX,    S(N1), S(N2), S(N3), S(N4), S(N5), S(ST1),
+  S(FN),  S(S1), S(TL), S(PL), S(HL), S(ST1),
+  S(PWR), S(S2), S(KL), S(WL), S(RL), S(ST2), S(ST2),
+  S(RE1), XXX, S(A), S(O),
+  ___,
+
+  S(N7),  XXX,    XXX,   XXX,   XXX,   XXX,   XXX,
+  S(ST3), S(N8),  S(N9), S(NA), S(NB), S(NC), XXX,
+  S(ST3), S(FR),  S(PR), S(LR), S(TR), S(DR),
+  S(ST4), S(ST4), S(RR), S(BR), S(GR), S(SR), S(ZR),
+  S(E), S(U), XXX, S(RE2),
+  ___),
+
+
   [FNLEFT] =  KEYMAP_STACKED
   (LGUI(LCTRL(Key_Space)),    Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
   Key_Enter,                  ___,           Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
@@ -105,7 +121,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FNRIGHT] =  KEYMAP_STACKED
-  (___, M(MACRO_TOGGLER), ___, ___, ___, ___, ___,
+  (___,     LockLayer(QWERTY),    LockLayer(COLEMAK),    LockLayer(STENO), ___, ___, ___,
   ___, ___, Key_UpArrow, ___, ___, ___, ___,
   ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
   ___, ___, ___, ___, ___, ___, ___,
@@ -119,8 +135,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,    ___,    Key_Enter,    ___,
   ___),
 
-
-
+   
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
    ___, ___, Key_UpArrow, ___, ___, ___, ___,
@@ -159,20 +174,6 @@ static void anyKeyMacro(uint8_t keyState) {
 }
 
 
-// Toggle between Colemak and Qwerty
-static void toggleFactoryLayout(uint8_t keyState) {
-  if (!keyToggledOn(keyState))
-    return;
-
-  if (Layer.isOn(COLEMAK)) {
-    Layer.move(QWERTY);
-    LEDControl.set_mode(2);
-  } else {
-    Layer.move(COLEMAK);
-    LEDControl.set_mode(1);
-  }
-}
-
 // one shot modifier on hyper
 static void OneShotHyper(uint8_t keyState) {
   handleKeyswitchEvent(OSM(LeftShift), UNKNOWN_KEYSWITCH_LOCATION, keyState);
@@ -198,10 +199,6 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
-    break;
-
-  case MACRO_TOGGLER:
-    toggleFactoryLayout(keyState);
     break;
 
   case MACRO_HYPER:
@@ -232,6 +229,7 @@ static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 
 void setup() {
+  Serial.begin(9600);
   Kaleidoscope.use(&LEDDigitalRainEffect);
 
   Kaleidoscope.setup();
@@ -239,6 +237,7 @@ void setup() {
   // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
     &OneShot, &EscapeOneShot, &ActiveModColorEffect,
+    &GeminiPR,
     &BootGreetingEffect,
     &LEDControl,
     &LEDOff,
