@@ -16,13 +16,12 @@
 #include "Kaleidoscope-LEDEffect-Chase.h"
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LED-Stalker.h"
-// Support for One Shot modifiers
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Escape-OneShot.h"
+#include "Kaleidoscope-Steno.h"
 #include <Kaleidoscope-LED-ActiveModColor.h>
 #include <kaleidoscope/hid.h>
 #include <Kaleidoscope-LEDEffect-DigitalRain.h>
-#include <Kaleidoscope-Steno.h>
 
 
 // index of macros
@@ -230,12 +229,10 @@ static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 void setup() {
   Serial.begin(9600);
-  Kaleidoscope.use(&LEDDigitalRainEffect);
-
-  Kaleidoscope.setup();
 
   // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
+    &LEDDigitalRainEffect,
     &OneShot, &EscapeOneShot, &ActiveModColorEffect,
     &GeminiPR,
     &BootGreetingEffect,
@@ -255,6 +252,8 @@ void setup() {
     &Macros,
     &MouseKeys
   );
+  
+  Kaleidoscope.setup();
 
   NumLock.numPadLayer = NUMPAD;
   LEDRainbowEffect.brightness(150);
