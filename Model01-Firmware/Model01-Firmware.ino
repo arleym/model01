@@ -120,7 +120,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FNRIGHT] =  KEYMAP_STACKED
-  (___,     LockLayer(QWERTY),    LockLayer(COLEMAK),    LockLayer(STENO), ___, ___, ___,
+  (LockLayer(COLEMAK),     LockLayer(QWERTY),    LockLayer(STENO), ___, ___, ___, ___,
   ___, ___, Key_UpArrow, ___, ___, ___, ___,
   ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
   ___, ___, ___, ___, ___, ___, ___,
@@ -213,42 +213,30 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 }
 
 
-// These 'solid' color effect definitions define a rainbow of
-// LED color modes calibrated to draw 500mA or less
-// Arley ones are untested for power consumption
 static kaleidoscope::LEDSolidColor solidRed(160, 0, 0);
-// static kaleidoscope::LEDSolidColor solidOrange(140, 70, 0);
-// static kaleidoscope::LEDSolidColor solidYellow(130, 100, 0);
-// static kaleidoscope::LEDSolidColor solidGreen(0, 160, 0);
-// static kaleidoscope::LEDSolidColor solidBlue(0, 70, 130);
-// static kaleidoscope::LEDSolidColor solidIndigo(0, 0, 170);
-// static kaleidoscope::LEDSolidColor solidViolet(130, 0, 120);
 static kaleidoscope::LEDSolidColor arleyblue(46, 114, 185);
 static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 
 void setup() {
-  Serial.begin(9600);
 
   // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
+    &GeminiPR,
     &LEDDigitalRainEffect,
     &OneShot, &EscapeOneShot, &ActiveModColorEffect,
-    &GeminiPR,
     &BootGreetingEffect,
     &LEDControl,
     &LEDOff,
-
-    &arleyblue, // first color, called in layout swapper
+    &arleyblue,
     &arleygreen,
     &LEDRainbowEffect,
     &LEDRainbowWaveEffect,
     &LEDChaseEffect,
-    &solidRed, //&solidOrange, &solidYellow, &solidGreen, &solidBlue, &solidIndigo, &solidViolet,
+    &solidRed,
     &LEDBreatheEffect,
     &StalkerEffect,
     &NumLock,
-
     &Macros,
     &MouseKeys
   );
@@ -264,10 +252,7 @@ void setup() {
 
   // Mousekeys - defaults listed after options https://github.com/keyboardio/Kaleidoscope-MouseKeys
   MouseKeys.speed = 48; // 1
-  MouseKeys.speedDelay = 0; // 0
-  MouseKeys.accelSpeed = 1; // 1
   MouseKeys.accelDelay = 150; // 50
-  MouseKeys.wheelSpeed = 1; // 1
   MouseKeys.wheelDelay = 60; // 50
 
   // Oneshot
