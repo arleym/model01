@@ -34,7 +34,7 @@ enum {
 
 
 // keymaps
-enum { COLEMAK, KAMELOC, QWERTY, YTREWQ, STENO, FNLEFT, FNRIGHT, NUMPAD };
+enum { COLEMAK, KAMELOC, QWERTY, STENO, FNLEFT, FNRIGHT, NUMPAD };
 
 // *INDENT-OFF*
 const Key keymaps[][ROWS][COLS] PROGMEM = {
@@ -74,35 +74,18 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   
   [QWERTY] = KEYMAP_STACKED
-  (___,    ___,      ___,      ___,      ___,      ___,      ___,
-  ___,     Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    ___,
-  ___,     Key_A,    Key_S,    Key_D,    Key_F,    Key_G,
-  ___,     Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    ___,
-  ShiftToLayer(YTREWQ),     ___,    ___,    ___,
+  (___,        ___,      ___,      ___,      ___,      ___,      ___,
+  ___,         Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    ___,
+  Key_Home,    Key_A,    Key_S,    Key_D,    Key_F,    Key_G,
+  Key_End,     Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    ___,
+  Key_LeftControl, Key_Backspace, Key_LeftAlt, Key_LeftShift,
   ___,
 
-  ___,          ___,      ___,      ___,      ___,      ___,              ___,
-  Key_Enter,    Key_Y,    Key_U,    Key_I,    Key_O,    Key_P,            ___,
-                Key_H,    Key_J,    Key_K,    Key_L,    Key_Semicolon,    ___,
-  ___,          Key_N,    Key_M,    ___,      ___,      ___,              ___,
-  ___,    ___,    ___,    ShiftToLayer(YTREWQ),
-  ___),
-
-
-
-  [YTREWQ] = KEYMAP_STACKED
-  (Key_KeypadNumLock,    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
-  ___,                   Key_P,            Key_O,         Key_I,        Key_U,    Key_Y,    Key_Enter,
-  ___,                   Key_Semicolon,    Key_L,         Key_K,        Key_J,    Key_H,
-  Key_Minus,             Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_N,    ___,
-  ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
-  ___,
-
-  M(MACRO_HYPER),    Key_5,    Key_4,    Key_3,    Key_2,    Key_1,    ___,
-  ___,               Key_T,    Key_R,    Key_E,    Key_W,    Key_Q,    ___,
-                     Key_G,    Key_F,    Key_D,    Key_S,    Key_A,    ___,
-  ___,               Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    ___,
-  ___,    ___,    ___,    ___,
+  ___,            ___,      ___,      ___,      ___,      ___,              ___,
+  Key_Enter,      Key_Y,    Key_U,    Key_I,    Key_O,    Key_P,            ___,
+                  Key_H,    Key_J,    Key_K,    Key_L,    Key_Semicolon,    ___,
+  Key_LeftGui,    Key_N,    Key_M,    ___,      ___,      ___,              ___,
+  Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
   ___),
 
 
@@ -235,11 +218,10 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   return MACRO_NONE;
 }
 
-
-static kaleidoscope::LEDSolidColor solidRed(160, 0, 0);
+static kaleidoscope::LEDSolidColor kristiblue(21, 166, 58);
+static kaleidoscope::LEDSolidColor kristigreen(10, 6, 207);
 static kaleidoscope::LEDSolidColor arleyblue(46, 114, 185);
 static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
-
 
 void setup() {
   Serial.begin(9600);
@@ -253,11 +235,12 @@ void setup() {
     &LEDControl,
     &LEDOff,
     &arleyblue,
+    &kristiblue,
+    &kristigreen,
     &arleygreen,
     &LEDRainbowEffect,
     &LEDRainbowWaveEffect,
     &LEDChaseEffect,
-    &solidRed,
     &LEDBreatheEffect,
     &StalkerEffect,
     &NumLock,
@@ -283,7 +266,6 @@ void setup() {
   ActiveModColorEffect.highlight_color = CRGB(0xff, 0xff, 0xff);
 
   LEDOff.activate();
-
 }
 
 // run the firmware
