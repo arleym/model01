@@ -40,10 +40,10 @@ enum { COLEMAK, KAMELOC, QWERTY, YTREWQ, STENO, FNLEFT, FNRIGHT, NUMPAD };
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [COLEMAK] = KEYMAP_STACKED
-  (___,            Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
-  Key_Backtick,    Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
-  Key_PageUp,      Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
-  Key_PageDown,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
+  (___,                 Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
+  Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
+  Key_mouseScrollDn,    Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
+  Key_mouseScrollUp,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
   ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
@@ -53,6 +53,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Enter,       Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
   OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(KAMELOC),
   ShiftToLayer(FNRIGHT)),
+
 
 
   [KAMELOC] = KEYMAP_STACKED
@@ -69,6 +70,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
   OSM(LeftShift),    OSM(LeftGui),    Key_Backspace,    ___,
   ShiftToLayer(FNLEFT)),
+
 
   
   [QWERTY] = KEYMAP_STACKED
@@ -87,12 +89,13 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___),
 
 
+
   [YTREWQ] = KEYMAP_STACKED
   (Key_KeypadNumLock,    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
   ___,                   Key_P,            Key_O,         Key_I,        Key_U,    Key_Y,    Key_Enter,
   ___,                   Key_Semicolon,    Key_L,         Key_K,        Key_J,    Key_H,
   Key_Minus,             Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_N,    ___,
-  ___,     ___,    ___,    ___,
+  ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
   ___,
 
   M(MACRO_HYPER),    Key_5,    Key_4,    Key_3,    Key_2,    Key_1,    ___,
@@ -101,6 +104,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,               Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    ___,
   ___,    ___,    ___,    ___,
   ___),
+
 
 
   [STENO] = KEYMAP_STACKED
@@ -119,11 +123,12 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___),
 
 
+
   [FNLEFT] =  KEYMAP_STACKED
   (LGUI(LCTRL(Key_Space)),    Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
   Key_Enter,                  ___,           Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
-  Key_mouseScrollDn,          Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
-  Key_mouseScrollUp,          ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
+  Key_PageUp,                 Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
+  Key_PageDown,               ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
   ___,    Key_Delete,    ___,    ___,
   ___,
 
@@ -133,6 +138,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,    Key_Mute,           ___,              Key_F19,                 Key_F18,                  Key_Backslash,      Key_Pipe,
   ___,    ___,    Key_Enter,    ___,
   ___),
+
 
 
   [FNRIGHT] =  KEYMAP_STACKED
@@ -150,7 +156,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___,    ___,    Key_Enter,    ___,
   ___),
 
-   
+
+
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
    ___, ___, Key_UpArrow, ___, ___, ___, ___,
