@@ -8,7 +8,7 @@
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-Macros.h"
 #include "Kaleidoscope-LEDControl.h"
-#include "Kaleidoscope-Numlock.h"
+#include "Kaleidoscope-NumPad.h"
 #include "LED-Off.h"
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
@@ -20,9 +20,7 @@
 #include "Kaleidoscope-Escape-OneShot.h"
 #include "Kaleidoscope-Steno.h"
 #include <Kaleidoscope-LED-ActiveModColor.h>
-#include <kaleidoscope/hid.h>
-#include <Kaleidoscope-LEDEffect-DigitalRain.h>
-
+//#include <kaleidoscope/hid.h> // not sure what this is or if it's broken
 
 // index of macros
 enum {
@@ -40,31 +38,31 @@ enum { COLEMAK, KAMELOC, QWERTY, STENO, FNLEFT, FNRIGHT, NUMPAD };
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [COLEMAK] = KEYMAP_STACKED
-  (___,                 Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
+  (M(MACRO_MEH),        Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    M(MACRO_HYPER),
   Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_mouseScrollDn,    Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_mouseScrollUp,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
   ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
-  M(MACRO_MEH),    Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            Key_KeypadNumLock,
-  Key_RightShift,  Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
-                   Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
-  Key_Enter,       Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
+  M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            M(MACRO_HYPER),
+  Key_RightShift,    Key_J,    Key_L,    Key_U,        Key_Y,         Key_Semicolon,    Key_Equals,
+                     Key_H,    Key_N,    Key_E,        Key_I,         Key_O,            Key_Quote,
+  Key_Enter,         Key_K,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
   OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(KAMELOC),
   ShiftToLayer(FNRIGHT)),
 
 
 
   [KAMELOC] = KEYMAP_STACKED
-  (Key_KeypadNumLock,    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
-  Key_Equals,            Key_Semicolon,    Key_Y,         Key_U,        Key_L,    Key_J,    Key_RightShift,
-  Key_Quote,             Key_O,            Key_I,         Key_E,        Key_N,    Key_H,
-  Key_Minus,             Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_K,    Key_Enter,
+  (M(MACRO_HYPER),    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
+  Key_Equals,         Key_Semicolon,    Key_Y,         Key_U,        Key_L,    Key_J,    Key_RightShift,
+  Key_Quote,          Key_O,            Key_I,         Key_E,        Key_N,    Key_H,
+  Key_Minus,          Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_K,    Key_Enter,
   ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
   ShiftToLayer(FNRIGHT),
 
-  M(MACRO_HYPER),    Key_5,    Key_4,    Key_3,    Key_2,    Key_1,    ___,
+  M(MACRO_HYPER),    Key_5,    Key_4,    Key_3,    Key_2,    Key_1,    M(MACRO_MEH),
   Key_Tab,           Key_G,    Key_P,    Key_F,    Key_W,    Key_Q,    Key_Backtick,
                      Key_D,    Key_T,    Key_S,    Key_R,    Key_A,    Key_PageUp,
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
@@ -74,19 +72,19 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   
   [QWERTY] = KEYMAP_STACKED
-  (___,        ___,      ___,      ___,      ___,      ___,      ___,
-  ___,         Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    ___,
-  Key_Home,    Key_A,    Key_S,    Key_D,    Key_F,    Key_G,
-  Key_End,     Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    ___,
-  Key_LeftControl, Key_Backspace, Key_LeftAlt, Key_LeftShift,
-  ___,
+  (___,            Key_1,    Key_2,    Key_3,    Key_4,    Key_5,    Key_LEDEffectNext,
+  Key_Backtick,    Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    Key_Tab,
+  Key_PageUp,      Key_A,    Key_S,    Key_D,    Key_F,    Key_G,
+  Key_PageDown,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
+  Key_LeftControl, Key_Backspace, OSM(LeftShift), Key_LeftAlt,
+  ShiftToLayer(FNLEFT),
 
-  ___,            ___,      ___,      ___,      ___,      ___,              ___,
-  Key_Enter,      Key_Y,    Key_U,    Key_I,    Key_O,    Key_P,            ___,
-                  Key_H,    Key_J,    Key_K,    Key_L,    Key_Semicolon,    ___,
-  Key_LeftGui,    Key_N,    Key_M,    ___,      ___,      ___,              ___,
-  Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-  ___),
+  Key_Home,     Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            LockLayer(NUMPAD),
+  Key_End,      Key_Y,    Key_U,    Key_I,        Key_O,         Key_P,            Key_Equals,
+                Key_H,    Key_J,    Key_K,        Key_L,         Key_Semicolon,    Key_Quote,
+  Key_Enter,    Key_N,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
+  Key_LeftGui, OSM(RightShift), Key_Spacebar, Key_RightControl,
+  ShiftToLayer(FNRIGHT)),
 
 
 
@@ -108,35 +106,35 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FNLEFT] =  KEYMAP_STACKED
-  (LGUI(LCTRL(Key_Space)),    Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
-  Key_Enter,                  ___,           Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
-  Key_PageUp,                 Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
-  Key_PageDown,               ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
-  ___,    Key_Delete,    ___,    ___,
+  (___,           Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
+  Key_F11,        Key_F12,       Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
+  Key_PageUp,     Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
+  Key_PageDown,   ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
+  (LGUI(Key_LeftAlt)),    Key_Delete,    ___,    ___,
   ___,
 
-  M(MACRO_ANY),               Key_F6,           Key_F7,                  Key_F8,                   Key_F9,             Key_F10,             Key_F11,
-  Consumer_PlaySlashPause,    ___,              Key_LeftCurlyBracket,    Key_RightCurlyBracket,    Key_LeftBracket,    Key_RightBracket,    Key_F12,
+  M(MACRO_ANY),               Key_F6,           Key_F7,                  Key_F8,                   Key_F9,             Key_F10,             ___,
+  Consumer_PlaySlashPause,    ___,              Key_LeftCurlyBracket,    Key_RightCurlyBracket,    Key_LeftBracket,    Key_RightBracket,    ___,
                               Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
-  ___,    Key_Mute,           ___,              Key_F19,                 Key_F18,                  Key_Backslash,      Key_Pipe,
+  LGUI(LCTRL(Key_Space)),     Key_Mute,           ___,              Key_F19,                 Key_F18,                  Key_Backslash,      Key_Pipe,
   ___,    ___,    Key_Enter,    ___,
   ___),
 
 
 
   [FNRIGHT] =  KEYMAP_STACKED
-  (LockLayer(COLEMAK),     LockLayer(QWERTY),    LockLayer(STENO), ___, ___, ___, ___,
-  ___, ___, Key_UpArrow, ___, ___, ___, ___,
-  ___, Key_LeftArrow, Key_DownArrow, Key_RightArrow, ___, ___,
+  (___,     LockLayer(QWERTY),    LockLayer(STENO),    ___, ___, ___, ___,
+  ___,      ___,                  Key_UpArrow,           ___, ___, ___, ___,
+  ___,      Key_LeftArrow,        Key_DownArrow,         Key_RightArrow, ___, ___,
   ___, ___, ___, ___, ___, ___, ___,
   ___, ___, ___, ___,
   ___,
 
-  ___, (LGUI(LSHIFT(LCTRL(Key_4)))), ___, ___, ___, ___, ___,
-  Consumer_PlaySlashPause, ___, ___, ___, ___, ___, ___,
-                              Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
-  ___, Key_Mute,    ___,    Consumer_VolumeIncrement,    Consumer_VolumeDecrement,    Consumer_ScanPreviousTrack,    Consumer_ScanNextTrack,
-  ___,    ___,    Key_Enter,    ___,
+  ___,                      (LGUI(LSHIFT(LCTRL(Key_4)))),  ___,            ___,                       ___,                       ___,                         LockLayer(NUMPAD),
+  Consumer_PlaySlashPause,  ___,                           ___,            ___,                       ___,                       ___,                         ___,
+                            Key_LeftArrow,                 Key_DownArrow,  Key_UpArrow,               Key_RightArrow,            ___,                         ___,
+  ___,                      Key_Mute,                      ___,            Consumer_VolumeIncrement,  Consumer_VolumeDecrement,  Consumer_ScanPreviousTrack,  Consumer_ScanNextTrack,
+  ___,    ___,    Key_Enter,    (LGUI(Key_LeftAlt)),
   ___),
 
 
@@ -229,28 +227,27 @@ void setup() {
   // The plugin call order can be important. eg, LED effects are added in the order listed
   Kaleidoscope.use(
     &GeminiPR,
-    &LEDDigitalRainEffect,
     &OneShot, &EscapeOneShot, &ActiveModColorEffect,
     &BootGreetingEffect,
     &LEDControl,
     &LEDOff,
+    &kristigreen,
     &arleyblue,
     &kristiblue,
-    &kristigreen,
     &arleygreen,
     &LEDRainbowEffect,
     &LEDRainbowWaveEffect,
     &LEDChaseEffect,
     &LEDBreatheEffect,
     &StalkerEffect,
-    &NumLock,
+    &NumPad,
     &Macros,
     &MouseKeys
   );
   
   Kaleidoscope.setup();
 
-  NumLock.numPadLayer = NUMPAD;
+  NumPad.numPadLayer = NUMPAD;
   LEDRainbowEffect.brightness(150);
   LEDRainbowWaveEffect.brightness(150);
 
