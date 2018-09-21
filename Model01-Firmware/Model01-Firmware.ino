@@ -13,14 +13,12 @@
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "Kaleidoscope-LEDEffect-Breathe.h"
-#include "Kaleidoscope-LEDEffect-Chase.h"
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LED-Stalker.h"
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Escape-OneShot.h"
 #include "Kaleidoscope-Steno.h"
 #include <Kaleidoscope-LED-ActiveModColor.h>
-//#include <kaleidoscope/hid.h> // not sure what this is or if it's broken
 
 // index of macros
 enum {
@@ -42,7 +40,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,         Key_Q,    Key_W,    Key_E,    Key_R,    Key_T,    Key_Tab,
   Key_mouseScrollDn,    Key_A,    Key_S,    Key_D,    Key_F,    Key_G,
   Key_mouseScrollUp,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  ShiftToLayer(YTREWQ),     Key_Backspace,    Key_LeftGui,    OSM(LeftShift),
+  ShiftToLayer(YTREWQ),     Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            M(MACRO_HYPER),
@@ -55,7 +53,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [YTREWQ] = KEYMAP_STACKED
   (M(MACRO_HYPER),    Key_0,            Key_9,         Key_8,        Key_7,    Key_6,    M(MACRO_MEH),
-  Key_Equals,         Key_P,            Key_O,         Key_I,        Key_U,    Key_J,    Key_RightShift,
+  Key_Equals,         Key_P,            Key_O,         Key_I,        Key_U,    Key_Y,    Key_RightShift,
   Key_Quote,          Key_Semicolon,    Key_L,         Key_K,        Key_J,    Key_H,
   Key_Minus,          Key_Slash,        Key_Period,    Key_Comma,    Key_M,    Key_N,    Key_Enter,
   ___,    Key_Spacebar,    Key_LeftAlt,    OSM(LeftControl),
@@ -65,7 +63,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Tab,           Key_T,    Key_R,    Key_E,    Key_W,    Key_Q,    Key_Backtick,
                      Key_G,    Key_F,    Key_D,    Key_S,    Key_A,    Key_PageUp,
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
-  OSM(LeftShift),    OSM(LeftGui),    Key_Backspace,    ___,
+  OSM(LeftShift),    Key_LeftGui,    Key_Backspace,    ___,
   ShiftToLayer(FNLEFT)),
 
 
@@ -75,7 +73,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_mouseScrollDn,    Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_mouseScrollUp,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    OSM(LeftShift),
+  ShiftToLayer(KAMELOC),    Key_Backspace,    OSM(LeftGui),    OSM(LeftShift),
   ShiftToLayer(FNLEFT),
 
   M(MACRO_MEH),      Key_6,    Key_7,    Key_8,        Key_9,         Key_0,            M(MACRO_HYPER),
@@ -98,7 +96,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Tab,           Key_G,    Key_P,    Key_F,    Key_W,    Key_Q,    Key_Backtick,
                      Key_D,    Key_T,    Key_S,    Key_R,    Key_A,    Key_PageUp,
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
-  OSM(LeftShift),    OSM(LeftGui),    Key_Backspace,    ___,
+  OSM(LeftShift),    Key_LeftGui,    Key_Backspace,    ___,
   ShiftToLayer(FNLEFT)),
 
 
@@ -121,10 +119,10 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 
   [FNLEFT] =  KEYMAP_STACKED
-  (___,           Key_F1,        Key_F2,         Key_F3,        Key_F4,           Key_F5,              Key_LEDEffectNext,
-  Key_F11,        Key_F12,       Key_mouseUp,    ___,           Key_mouseBtnR,    Key_mouseWarpEnd,    Key_mouseWarpNE,
-  Key_PageUp,     Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,    Key_mouseWarpNW,
-  Key_PageDown,   ___,           ___,            ___,           Key_mouseBtnM,    Key_mouseWarpSW,     Key_mouseWarpSE,
+  (Key_Enter,     Key_F1,        Key_F2,         Key_F3,        Key_F4,                              Key_F5,              Key_LEDEffectNext,
+  Key_F11,        Key_F12,       Key_mouseUp,    ___,           Key_mouseBtnR,                       Key_mouseWarpEnd,    Key_mouseWarpNE,
+  Key_PageUp,     Key_mouseL,    Key_mouseDn,    Key_mouseR,    Key_mouseBtnL,                       Key_mouseWarpNW,
+  Key_PageDown,   ___,           ___,            ___,           LSHIFT(LALT(LCTRL(LGUI(Key_V)))),    Key_mouseWarpSW,     Key_mouseWarpSE, // Key_mouseBtnM
   (LGUI(Key_LeftAlt)),    Key_Delete,    ___,    ___,
   ___,
 
@@ -132,16 +130,16 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Consumer_PlaySlashPause,    ___,              Key_LeftCurlyBracket,    Key_RightCurlyBracket,    Key_LeftBracket,    Key_RightBracket,    ___,
                               Key_LeftArrow,    Key_DownArrow,           Key_UpArrow,              Key_RightArrow,     ___,                 ___,
   LGUI(LCTRL(Key_Space)),     Key_Mute,           ___,              Key_F19,                 Key_F18,                  Key_Backslash,      Key_Pipe,
-  ___,    ___,    Key_Enter,    ___,
+  ___,    ___,    ___,    ___,
   ___),
 
 
 
   [FNRIGHT] =  KEYMAP_STACKED
-  (___,     LockLayer(COLEMAK),    LockLayer(QWERTY),    LockLayer(STENO), ___, ___, ___,
-  ___,      ___,                   Key_UpArrow,           ___, ___, ___, ___,
-  ___,      Key_LeftArrow,         Key_DownArrow,         Key_RightArrow, ___, ___,
-  ___, ___, ___, ___, ___, ___, ___,
+  (___,     LockLayer(COLEMAK),    LockLayer(STENO),    ___,      ___,      ___,      ___,
+  ___, ___, LALT(LCTRL(LGUI(Key_W))), ___, ___, ___,                                                       LSHIFT(Key_P),
+  ___, Key_1,                 Key_2,               Key_3,    Key_4,    Key_5,
+  ___, Key_6,                 Key_7,               Key_8,    Key_9,    Key_0,    Key_Minus,
   ___, ___, ___, ___,
   ___,
 
@@ -231,10 +229,9 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   return MACRO_NONE;
 }
 
+static kaleidoscope::LEDSolidColor arleyblue(46, 114, 185);
 static kaleidoscope::LEDSolidColor kristiblue(21, 166, 58);
 static kaleidoscope::LEDSolidColor kristigreen(10, 6, 207);
-static kaleidoscope::LEDSolidColor arleyblue(46, 114, 185);
-static kaleidoscope::LEDSolidColor arleygreen(95, 150, 19);
 
 void setup() {
   Serial.begin(9600);
@@ -249,10 +246,8 @@ void setup() {
     &kristigreen,
     &arleyblue,
     &kristiblue,
-    &arleygreen,
     &LEDRainbowEffect,
     &LEDRainbowWaveEffect,
-    &LEDChaseEffect,
     &LEDBreatheEffect,
     &StalkerEffect,
     &NumPad,
