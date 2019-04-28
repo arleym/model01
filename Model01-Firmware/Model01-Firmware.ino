@@ -1,4 +1,4 @@
-// Arley's M01 firmware
+// Arley's M01 firmware 1.23
 #ifndef BUILD_INFORMATION
 #define BUILD_INFORMATION "1.0"
 #endif
@@ -100,7 +100,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ShiftToLayer(FNLEFT)),
 
 
-  
+
   [STENO] = KEYMAP_STACKED
   (XXX,    XXX,   XXX,   XXX,   XXX,   XXX,   S(N6),
   XXX,    S(N1), S(N2), S(N3), S(N4), S(N5), S(ST1),
@@ -254,7 +254,7 @@ void setup() {
     &Macros,
     &MouseKeys
   );
-  
+
   Kaleidoscope.setup();
 
   NumPad.numPadLayer = NUMPAD;
@@ -279,4 +279,3 @@ void setup() {
 void loop() {
   Kaleidoscope.loop();
 }
-
