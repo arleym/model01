@@ -52,7 +52,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_RightShift,    Key_Y,    Key_U,    Key_I,        Key_O,         Key_P,            Key_Equals,
                      Key_H,    Key_J,    Key_K,        Key_L,         Key_Semicolon,    Key_Quote,
   Key_Enter,         Key_N,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(YTREWQ),
+  OSM(LeftControl),    Key_LeftAlt,    ShiftToLayer(YTREWQ),    Key_Spacebar,
   ShiftToLayer(FNRIGHT)),
 
 // 2a. Ytrewq left - a mirror-layer on 1a 
@@ -69,7 +69,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Tab,           Key_T,    Key_R,    Key_E,    Key_W,    Key_Q,    Key_Backtick,
                      Key_G,    Key_F,    Key_D,    Key_S,    Key_A,    Key_PageUp,
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
-  OSM(LeftShift),    Key_LeftGui,    Key_Backspace,    ___,
+  OSM(LeftShift),    Key_LeftGui,    ___,    Key_Backspace,
   ShiftToLayer(FNLEFT)),
 
 // 3a. Colemak left - handy for computers that aren't mine! 
@@ -78,7 +78,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Backtick,         Key_Q,    Key_W,    Key_F,    Key_P,    Key_G,    Key_Tab,
   Key_mouseScrollDn,    Key_A,    Key_R,    Key_S,    Key_T,    Key_D,
   Key_mouseScrollUp,    Key_Z,    Key_X,    Key_C,    Key_V,    Key_B,    Key_Escape,
-  ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    Key_RightShift,
+//ShiftToLayer(KAMELOC),    Key_Backspace,    Key_LeftGui,    Key_RightShift,
+  ShiftToLayer(KAMELOC),    Key_Backspace,    OSM(LeftControl),    Key_RightShift,
   ShiftToLayer(FNLEFT),
 
 // 3b. Colemak right 
@@ -103,7 +104,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_Tab,           Key_G,    Key_P,    Key_F,    Key_W,    Key_Q,    Key_Backtick,
                      Key_D,    Key_T,    Key_S,    Key_R,    Key_A,    Key_PageUp,
   Key_Escape,        Key_B,    Key_V,    Key_C,    Key_X,    Key_Z,    Key_PageDown,
-  OSM(LeftShift),    Key_LeftGui,    Key_Backspace,    ___,
+  OSM(LeftShift),    Key_LeftGui,    ___,    Key_Backspace,
   ShiftToLayer(FNLEFT)),
 
 // 5a. Steno left - Not using this yet, but one day would like to learn. 
@@ -148,7 +149,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   ___, ___, LALT(LCTRL(LGUI(Key_W))), ___, ___, ___,                                                       LSHIFT(Key_P),
   ___, Key_1,                 Key_2,               Key_3,    Key_4,    Key_5,
   ___, Key_6,                 Key_7,               Key_8,    Key_9,    Key_0,    Key_Minus,
-  ___, ___, ___, ___,
+  Key_Period, LSHIFT(Key_8), ___, ___,
   ___,
 
 // 7b. FN-Right Right - function key layer triggered by right fn key
