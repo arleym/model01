@@ -52,7 +52,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   Key_RightShift,    Key_Y,    Key_U,    Key_I,        Key_O,         Key_P,            Key_Equals,
                      Key_H,    Key_J,    Key_K,        Key_L,         Key_Semicolon,    Key_Quote,
   Key_Enter,         Key_N,    Key_M,    Key_Comma,    Key_Period,    Key_Slash,        Key_Minus,
-  OSM(LeftControl),    Key_LeftAlt,    ShiftToLayer(YTREWQ),    Key_Spacebar,
+  OSM(LeftControl),    Key_LeftAlt,    Key_Spacebar,    ShiftToLayer(YTREWQ),
   ShiftToLayer(FNRIGHT)),
 
 // 2a. Ytrewq left - a mirror-layer on 1a 
